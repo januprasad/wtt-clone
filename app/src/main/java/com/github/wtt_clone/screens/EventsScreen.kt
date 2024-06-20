@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import com.github.wtt_clone.R
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun EventsScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

@@ -12,9 +12,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.github.wtt_clone.screens.HomeScreen
+import com.github.wtt_clone.screens.LatestScreen
 import com.github.wtt_clone.screens.ProfileScreen
-import com.github.wtt_clone.screens.SearchScreen
+import com.github.wtt_clone.screens.EventsScreen
+import com.github.wtt_clone.screens.PlayersScreen
+import com.github.wtt_clone.screens.VideoScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +60,7 @@ fun App() {
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(Screens.Home.route) {
+                        navController.navigate(Screens.Latest.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
@@ -77,16 +79,26 @@ fun App() {
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = Screens.Home.route,
+            startDestination = Screens.Latest.route,
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
-            composable(Screens.Home.route) {
-                HomeScreen(
+            composable(Screens.Latest.route) {
+                LatestScreen(
                     navController
                 )
             }
-            composable(Screens.Search.route) {
-                SearchScreen(
+            composable(Screens.Events.route) {
+                EventsScreen(
+                    navController
+                )
+            }
+            composable(Screens.Video.route) {
+                VideoScreen(
+                    navController
+                )
+            }
+            composable(Screens.Players.route) {
+                PlayersScreen(
                     navController
                 )
             }

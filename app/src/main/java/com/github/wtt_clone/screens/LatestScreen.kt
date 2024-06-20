@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import com.github.wtt_clone.R
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun LatestScreen(navController: NavController) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

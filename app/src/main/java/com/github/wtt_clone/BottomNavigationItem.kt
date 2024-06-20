@@ -15,14 +15,24 @@ data class BottomNavigationItem(
     fun bottomNavigationItems() : List<BottomNavigationItem> {
         return listOf(
             BottomNavigationItem(
-                label = "Home",
+                label = "Latest",
                 icon = Icons.Filled.Home,
-                route = Screens.Home.route
+                route = Screens.Latest.route
             ),
             BottomNavigationItem(
-                label = "Search",
+                label = "Events",
                 icon = Icons.Filled.Search,
-                route = Screens.Search.route
+                route = Screens.Events.route
+            ),
+            BottomNavigationItem(
+                label = "Video",
+                icon = Icons.Filled.AccountCircle,
+                route = Screens.Video.route
+            ),
+            BottomNavigationItem(
+                label = "Players",
+                icon = Icons.Filled.AccountCircle,
+                route = Screens.Players.route
             ),
             BottomNavigationItem(
                 label = "Profile",
