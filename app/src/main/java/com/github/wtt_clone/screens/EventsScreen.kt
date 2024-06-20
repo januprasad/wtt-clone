@@ -11,8 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.github.wtt_clone.EventData
 import com.github.wtt_clone.R
 
 @Composable
@@ -25,27 +28,41 @@ fun EventsScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(15.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(horizontal = 15.dp, vertical = 10.dp)
-                    .clip(MaterialTheme.shapes.large)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.two),
-                    contentDescription = "search_screen_bg",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
+            val eventData = EventData(
+                date = "19 - June 2024",
+                title = "Contrary to popular belief, Lorem Ipsum",
+                countryFlag = "https://picsum.photos/200/300?random",
+                description = "There are many variations of passages of Lorem Ipsum"
+            )
+            repeat(3) {
+                EventCards(eventData)
             }
+
+        }
+    }
+}
+
+@Composable
+fun EventCards(eventData: EventData) {
+    Column {
+        Text(
+            text = eventData.date, style = TextStyle.Default.copy(
+                fontSize = 18.sp,
+            )
+        )
+        Text(
+            text = eventData.title, style = TextStyle.Default.copy(
+                fontSize = 24.sp,
+            )
+        )
+
+        Row {
+            ImageLoaderWTT(eventData.countryFlag, modifier = Modifier.height(60.dp).width(100.dp))
             Text(
-                "Search Screen",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(vertical = 20.dp)
+                text = eventData.description, style = TextStyle.Default.copy(
+                    fontSize = 16.sp,
+                )
             )
         }
     }

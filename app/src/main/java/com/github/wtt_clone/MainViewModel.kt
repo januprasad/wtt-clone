@@ -10,13 +10,22 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     val pager = easyPager {
-        loadData(it)
+        loadPageData(it)
     }
-    private suspend fun loadData(page: Int): PagingListWrapper<String> {
+
+
+    private suspend fun loadPageData(page: Int): PagingListWrapper<LatestPageData> {
         delay(1500)
-        val data = mutableListOf("Page ${page+1}")
-        repeat(10) {
-            data.add("Item ${it+1+((page)*10)}")
+        var data = mutableListOf<LatestPageData>()
+        repeat(20) {
+            data.add(
+                LatestPageData(
+                    image = "https://picsum.photos/200/300?random=$it",
+                    title = "Contrary to popular belief, Lorem Ipsum is not simply random text.",
+                    tag = "Tag $it",
+                    description = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
+                )
+            )
         }
         return PagingListWrapper(data, page < 3)
     }

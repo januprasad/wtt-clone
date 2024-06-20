@@ -28,25 +28,7 @@ fun VideoScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(horizontal = 15.dp, vertical = 10.dp)
-                    .clip(MaterialTheme.shapes.large)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.two),
-                    contentDescription = "search_screen_bg",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Text(
-                "Search Screen",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(vertical = 20.dp)
-            )
+
         }
     }
 }

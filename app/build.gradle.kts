@@ -75,4 +75,5 @@ dependencies {
     implementation(libs.compose.paginglist)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.coil.image.loader)
 }

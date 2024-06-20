@@ -48,12 +48,6 @@ fun App() {
                             Text(navigationItem.label)
                         },
                         icon = {
-                            val brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    red,
-                                    orange
-                                )
-                            )
                             Icon(
                                 modifier = Modifier
                                     .size(24.dp)
@@ -61,7 +55,7 @@ fun App() {
                                     .drawWithCache {
                                         onDrawWithContent {
                                             drawContent()
-                                            drawRect(brush = brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
+                                            drawRect(brush = Constants.brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
                                         }
                                     },
                                 painter = painterResource(id = navigationItem.icon),
