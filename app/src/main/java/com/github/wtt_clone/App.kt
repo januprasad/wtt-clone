@@ -2,6 +2,7 @@ package com.github.wtt_clone
 
 import android.graphics.BlendMode
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,7 @@ import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
 import com.github.wtt_clone.ui.theme.orange
 import com.github.wtt_clone.ui.theme.red
+import com.github.wtt_clone.ui.theme.toughorange
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,22 +44,30 @@ fun App() {
         bottomBar = {
             NavigationBar {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
+                    val  selected = navigationItem.route == currentDestination?.route
+                    val selectedMod = when (selected) {
+                        false -> Modifier
+                            .size(24.dp)
+                        true -> Modifier
+                            .size(28.dp)
+                            .graphicsLayer(alpha = 0.99f)
+                            .drawWithCache {
+                                onDrawWithContent {
+                                    drawContent()
+                                    drawRect(brush = Constants.brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
+                                }
+                            }
+                    }
                     NavigationBarItem(
-                        selected = navigationItem.route == currentDestination?.route,
+                        selected = selected,
                         label = {
                             Text(navigationItem.label)
                         },
                         icon = {
                             Icon(
+                                tint = toughorange ,
                                 modifier = Modifier
-                                    .size(24.dp)
-                                    .graphicsLayer(alpha = 0.99f)
-                                    .drawWithCache {
-                                        onDrawWithContent {
-                                            drawContent()
-                                            drawRect(brush = Constants.brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
-                                        }
-                                    },
+                                    .then(selectedMod),
                                 painter = painterResource(id = navigationItem.icon),
                                 contentDescription = navigationItem.label
                             )
