@@ -14,11 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.wtt_clone.R
-import com.github.wtt_clone.ui.theme.WTTcloneTheme
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    WTTcloneTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -51,5 +49,4 @@ fun HomeScreen(navController: NavController) {
                 )
             }
         }
-    }
 }
