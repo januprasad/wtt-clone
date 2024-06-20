@@ -1,14 +1,20 @@
 package com.github.wtt_clone
 
+import android.graphics.BlendMode
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -21,6 +27,9 @@ import com.github.wtt_clone.screens.ProfileScreen
 import com.github.wtt_clone.screens.EventsScreen
 import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
+import com.github.wtt_clone.ui.theme.orange
+import com.github.wtt_clone.ui.theme.red
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,8 +48,23 @@ fun App() {
                             Text(navigationItem.label)
                         },
                         icon = {
+                            val brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    red,
+                                    orange
+                                )
+                            )
                             Icon(
-                                navigationItem.icon,
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .graphicsLayer(alpha = 0.99f)
+                                    .drawWithCache {
+                                        onDrawWithContent {
+                                            drawContent()
+                                            drawRect(brush = brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
+                                        }
+                                    },
+                                painter = painterResource(id = navigationItem.icon),
                                 contentDescription = navigationItem.label
                             )
                         },
