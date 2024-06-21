@@ -30,15 +30,21 @@ fun BoldText(
 }
 
 @Composable
-fun DescriptionText(text: String, size: TextUnit = 16.sp, modifier: Modifier = Modifier, maxLines: Int = Int.MAX_VALUE) {
+fun DescriptionText(text: String,
+                    size: TextUnit = 16.sp,
+                    modifier: Modifier = Modifier,
+                    maxLines: Int = Int.MAX_VALUE,
+                    color: Color = Color.White,
+                    ) {
     Text(
         text = text, style = TextStyle.Default.copy(
-            fontSize = 16.sp,
+            fontSize =size,
             fontFamily = familyHelveticaNeue,
             letterSpacing = 0.5.sp,
             lineHeight = 21.sp,
         ),
         modifier = modifier,
         maxLines = maxLines,
+        color = color
     )
 }

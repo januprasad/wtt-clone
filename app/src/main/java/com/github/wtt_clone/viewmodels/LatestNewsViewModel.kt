@@ -1,7 +1,11 @@
 package com.github.wtt_clone.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.github.wtt_clone.ChampionShipData
+import com.github.wtt_clone.CurrentMatchData
 import com.github.wtt_clone.LatestPageData
+import com.github.wtt_clone.PlayersData
+import com.github.wtt_clone.ScoreCardData
 import com.kevinnzou.compose.core.paginglist.easyPager
 import com.kevinnzou.compose.core.paginglist.pagerconfig.PagingListWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,9 +13,43 @@ import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class LatestNewsViewModel @Inject constructor() : ViewModel() {
     val latestNewsPager = easyPager {
         loadPageData(it)
+    }
+
+    val scoreCardPager = easyPager {
+        loadScoreCardData(it)
+    }
+
+    private suspend fun loadScoreCardData(page: Int): PagingListWrapper<ScoreCardData> {
+        delay(1500)
+        var data = mutableListOf<ScoreCardData>()
+        repeat(20) {
+            data.add(
+                ScoreCardData(
+                    match = ChampionShipData(
+                        title = "WTT Contented Logos 2024",
+                        countryFlag = countryFlags.random()
+                    ),
+                    currentMatch = CurrentMatchData(
+                        day = "Today",
+                        title = "Mixed Doubles - Quarter finale"
+                    ),
+                    playersData1 = PlayersData(
+                        flag = countryFlags.random(),
+                        players = players.random().plus("/").plus(players.random()),
+                        rank = "#${(1..8).random()}"
+                    ),
+                    playersData2 = PlayersData(
+                        flag = countryFlags.random(),
+                        players = players.random().plus("/").plus(players.random()),
+                        rank = "#${(1..8).random()}"
+                    )
+                )
+            )
+        }
+        return PagingListWrapper(data, page < 3)
     }
 
 
@@ -31,6 +69,13 @@ class MainViewModel @Inject constructor() : ViewModel() {
         return PagingListWrapper(data, page < 3)
     }
 
+    private val countryFlags = listOf(
+        "https://documentstore.ittf.com/websitefiles/assets/flags_normal/in.png",
+        "https://documentstore.ittf.com/websitefiles/assets/flags_normal/us.png",
+        "https://documentstore.ittf.com/websitefiles/assets/flags_normal/mn.png",
+        "https://documentstore.ittf.com/websitefiles/assets/flags_normal/kn.png",
+        "https://documentstore.ittf.com/websitefiles/assets/flags_normal/ws.png",
+    )
     private val images = listOf(
         "https://pixabay.com/get/ge2c2b28b221d334b28f4187827f3d81ae73f56b540649c662b2357de621af0ad3b044c4daf93f808913ddbc301f6fb69f8369527425535b4a3d247d42f28e3b3_640.jpg",
         "https://pixabay.com/get/g2192d35c3aaf210661ea14a46b9ec48a9b31a11838c001e253cf0a888b181c06864b8dc25fac4eb534d3147fac7bb52ca0fa009d231ca2964a1bce3b0cab00fe_640.jpg",
@@ -53,5 +98,15 @@ class MainViewModel @Inject constructor() : ViewModel() {
         "Prithika Pavade’s magical run at WTT Star Contender Ljubljana 2024 Presented by I Feel Slovenia continues to capture the imagination of the fans in attendance at Hala Tivoli, producing another stunning effort on Saturday to turn heads in the Slovenian capital.",
         "Needing just one more game to claim a huge scalp, Groth had the finish line in sight as Ljubljana held its breath. But Lebrun would crack the code late on, rising to the challenge in game four to level the scores, and he wouldn’t let it slip from there, finding enough in his back pocket to go again in the fifth to deny the upset.",
         "Facing off against No.4 seed Mima Ito for the second time in eight days, Pavade was going for an unlikely double over the Japanese star on Saturday, and she remarkably pulled off the feat, taking huge belief from her win over Ito at last week’s WTT Contender Zagreb to earn another shock win over the former World No.2 (5-11, 11-4, 11-8, 11-6).",
+    )
+    val players = listOf(
+        "Thakkar",
+        "Kamath",
+        "Kuti",
+        "Bello",
+        "Diaz",
+        "Florex",
+        "Sardar",
+        "Mathan"
     )
 }
