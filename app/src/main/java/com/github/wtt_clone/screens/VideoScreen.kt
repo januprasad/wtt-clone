@@ -34,7 +34,7 @@ import com.github.wtt_clone.AllVideosActivity
 import com.github.wtt_clone.BoldText
 import com.github.wtt_clone.DescriptionText
 import com.github.wtt_clone.VideoData
-import com.github.wtt_clone.VideosViewModel
+import com.github.wtt_clone.viewmodels.VideosViewModel
 import com.github.wtt_clone.ui.theme.orange
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 

@@ -33,7 +33,7 @@ import coil.compose.SubcomposeAsyncImage
 import com.github.wtt_clone.BoldText
 import com.github.wtt_clone.Constants
 import com.github.wtt_clone.DescriptionText
-import com.github.wtt_clone.MainViewModel
+import com.github.wtt_clone.viewmodels.MainViewModel
 import com.github.wtt_clone.LatestPageData
 import com.github.wtt_clone.NewsDetailActivity
 import com.github.wtt_clone.familyBioSans

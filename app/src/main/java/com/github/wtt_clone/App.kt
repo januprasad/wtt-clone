@@ -1,5 +1,8 @@
 package com.github.wtt_clone
 
+import android.content.pm.ActivityInfo
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +14,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -29,7 +34,6 @@ import com.github.wtt_clone.screens.VideoScreen
 import com.github.wtt_clone.ui.theme.toughorange
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
     val navController = rememberNavController()
@@ -40,28 +44,39 @@ fun App() {
         bottomBar = {
             NavigationBar {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
-                    val  selected = navigationItem.route == currentDestination?.route
+                    val selected = navigationItem.route == currentDestination?.route
+                    val sizeIcon: Dp by animateDpAsState(targetValue =
+                        if (selected) 28.dp else 24.dp
+                    )
                     val selectedMod = when (selected) {
                         false -> Modifier
-                            .size(24.dp)
+                            .size(sizeIcon)
+
                         true -> Modifier
-                            .size(28.dp)
+                            .size(sizeIcon)
                             .graphicsLayer(alpha = 0.99f)
                             .drawWithCache {
                                 onDrawWithContent {
                                     drawContent()
-                                    drawRect(brush = Constants.gradientBrush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
+                                    drawRect(
+                                        brush = Constants.gradientBrush,
+                                        blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop
+                                    )
                                 }
                             }
                     }
                     NavigationBarItem(
                         selected = selected,
                         label = {
-                            Text(navigationItem.label)
+//                            var selected by remember { mutableStateOf(selected) }
+                            val textColor: Color by animateColorAsState(
+                                if (selected) Color.White else toughorange
+                            )
+                            Text(navigationItem.label, color = textColor)
                         },
                         icon = {
                             Icon(
-                                tint = toughorange ,
+                                tint = toughorange,
                                 modifier = Modifier
                                     .then(selectedMod),
                                 painter = painterResource(id = navigationItem.icon),

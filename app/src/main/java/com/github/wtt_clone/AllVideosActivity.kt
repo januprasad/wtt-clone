@@ -1,5 +1,6 @@
 package com.github.wtt_clone
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,7 @@ class AllVideosActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     AllVideosScreen()
                 }
             }

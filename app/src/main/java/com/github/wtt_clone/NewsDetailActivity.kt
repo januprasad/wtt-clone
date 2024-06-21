@@ -1,5 +1,6 @@
 package com.github.wtt_clone
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +24,7 @@ class NewsDetailActivity : ComponentActivity() {
                         WTTTopBar()
                     }
                 ) { innerPadding ->
+                    LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     NewsDetailScreen()
                 }
             }

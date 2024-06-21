@@ -1,6 +1,7 @@
-package com.github.wtt_clone
+package com.github.wtt_clone.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.github.wtt_clone.VideoData
 import com.kevinnzou.compose.core.paginglist.easyPager
 import com.kevinnzou.compose.core.paginglist.pagerconfig.PagingListWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
