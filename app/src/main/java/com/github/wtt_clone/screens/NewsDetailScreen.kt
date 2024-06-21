@@ -21,9 +21,9 @@ import com.github.wtt_clone.DescriptionText
 import com.github.wtt_clone.viewmodels.LatestNewsViewModel
 
 @Composable
-fun NewsDetailScreen(viewModel: LatestNewsViewModel = hiltViewModel()) {
+fun NewsDetailScreen(modifier: Modifier, viewModel: LatestNewsViewModel = hiltViewModel()) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         val image by remember {
             mutableStateOf(viewModel.randomNewsImage())

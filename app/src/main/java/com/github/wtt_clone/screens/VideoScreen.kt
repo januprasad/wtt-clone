@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -50,26 +51,28 @@ fun VideoScreen(
         Column {
             var text by remember { mutableStateOf("") } // Query for SearchBar
             var active by remember { mutableStateOf(false) } // Active state for SearchBar
-            SearchBar(modifier = Modifier.fillMaxWidth(),
-                query = text,
-                onQueryChange = {
-                    text = it
-                },
-                onSearch = {
-                    active = false
-                },
-                active = active,
-                onActiveChange = {
-                    active = false
-                },
-                placeholder = {
-                    Text(text = "Enter your query")
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = null)
-                }) {
+                SearchBar(
+                    windowInsets = WindowInsets.ime,
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                    query = text,
+                    onQueryChange = {
+                        text = it
+                    },
+                    onSearch = {
+                        active = false
+                    },
+                    active = active,
+                    onActiveChange = {
+                        active = false
+                    },
+                    placeholder = {
+                        Text(text = "Enter your query")
+                    },
+                    trailingIcon = {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                    }) {
 
-            }
+                }
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
