@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
-    val pager = easyPager {
+    val latestNewsPager = easyPager {
         loadPageData(it)
     }
 
