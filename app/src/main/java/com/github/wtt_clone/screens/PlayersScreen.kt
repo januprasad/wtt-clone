@@ -2,6 +2,7 @@ package com.github.wtt_clone.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -27,12 +28,14 @@ import com.github.wtt_clone.BoldText
 import com.github.wtt_clone.DescriptionText
 import com.github.wtt_clone.PlayerData
 import com.github.wtt_clone.R
+import com.github.wtt_clone.Screens
 import com.github.wtt_clone.ui.theme.orange
 import com.github.wtt_clone.viewmodels.PlayersViewModel
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 
 @Composable
-fun PlayersScreen(navController: NavController, viewModel: PlayersViewModel = hiltViewModel()) {
+fun PlayersScreen(navController: NavController,
+                  viewModel: PlayersViewModel = hiltViewModel()) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -46,7 +49,9 @@ fun PlayersScreen(navController: NavController, viewModel: PlayersViewModel = hi
                 LazyColumn {
                     itemsIndexed(playersPagerData) { _, value ->
                         value?.let {
-                            PlayersCard(it)
+                            PlayersCard(it){
+                                navController.navigate(Screens.PlayerDetail.route)
+                            }
                         }
                     }
                 }
@@ -56,7 +61,7 @@ fun PlayersScreen(navController: NavController, viewModel: PlayersViewModel = hi
 }
 
 @Composable
-fun PlayersCard(player: PlayerData) {
+fun PlayersCard(player: PlayerData, navigateToPlayerDetails: (PlayerData) -> Unit) {
     Box {
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -98,6 +103,9 @@ fun PlayersCard(player: PlayerData) {
                     modifier = Modifier.weight(1f).padding(top = 8.dp)
                 )
                 Row(
+                    modifier = Modifier.clickable {
+                        navigateToPlayerDetails(player)
+                    },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {

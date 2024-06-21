@@ -29,6 +29,7 @@ import com.github.wtt_clone.screens.LatestScreen
 import com.github.wtt_clone.screens.ProfileScreen
 import com.github.wtt_clone.screens.EventsScreen
 import com.github.wtt_clone.screens.NewsDetailScreen
+import com.github.wtt_clone.screens.PlayerInfoScreen
 import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
 import com.github.wtt_clone.ui.theme.toughorange
@@ -128,6 +129,11 @@ fun App() {
             }
             composable(Screens.Profile.route) {
                 ProfileScreen(
+                    navController
+                )
+            }
+            composable(Screens.PlayerDetail.route) {
+                PlayerInfoScreen(
                     navController
                 )
             }
