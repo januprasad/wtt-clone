@@ -9,8 +9,8 @@ data class LatestPageData(
 data class ScoreCardData(
     val match: ChampionShipData,
     val currentMatch: CurrentMatchData,
-    val playersData1: PlayersData,
-    val playersData2: PlayersData,
+    val matchPlayerData1: MatchPlayerData,
+    val matchPlayerData2: MatchPlayerData,
 )
 data class ChampionShipData(
     val title: String,
@@ -20,7 +20,7 @@ data class CurrentMatchData(
     val day: String,
     val title: String,
 )
-data class PlayersData(
+data class MatchPlayerData(
     val flag: String,
     val players: String,
     val rank: String,
@@ -35,4 +35,13 @@ data class EventData(
 data class VideoData(
     val thumb: String,
     val title: String,
+)
+data class PlayerData(
+    val profileImage: String,
+    val name: String,
+    val country: String,
+    val ranking: String,
+    val countryFlag: String,
+    val points: String,
+    val lastMatch: String
 )

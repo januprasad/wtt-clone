@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.core.content.ContextCompat.startActivity
@@ -64,17 +63,15 @@ fun LatestScreen(
             val c = LocalContext.current
             val latestNewsPagerData = viewModel.latestNewsPager.collectAsLazyPagingItems()
             val scorePagerData = viewModel.scoreCardPager.collectAsLazyPagingItems()
+            LazyRow {
+                items(scorePagerData) {
+                    it?.let {
+                        LiveScoreCard(it)
+                    }
+                }
+            }
             PagingListContainer(pagingData = latestNewsPagerData) {
                 LazyColumn {
-                    item {
-                        LazyRow {
-                            items(scorePagerData) {
-                                it?.let {
-                                    LiveScoreCard(it)
-                                }
-                            }
-                        }
-                    }
                     itemsIndexed(latestNewsPagerData) { _, value ->
                         value?.let {
                             ScrollableContent(it) {
@@ -133,37 +130,37 @@ fun LiveScoreCard(scoreCard: ScoreCardData) {
             )
             Row {
                 ImageLoaderWTT(
-                    url = scoreCard.playersData1.flag,
+                    url = scoreCard.matchPlayerData1.flag,
                     modifier = Modifier
                         .size(width = 20.dp, height = 15.dp)
                         .padding(2.dp)
                 )
                 ImageLoaderWTT(
-                    url = scoreCard.playersData1.flag,
+                    url = scoreCard.matchPlayerData1.flag,
                     modifier = Modifier
                         .size(width = 20.dp, height = 15.dp)
                         .padding(2.dp)
                 )
                 BoldText(
-                    text = scoreCard.playersData1.players.uppercase(),
+                    text = scoreCard.matchPlayerData1.players.uppercase(),
                     size = 8.sp
                 )
             }
             Row {
                 ImageLoaderWTT(
-                    url = scoreCard.playersData2.flag,
+                    url = scoreCard.matchPlayerData2.flag,
                     modifier = Modifier
                         .size(width = 20.dp, height = 15.dp)
                         .padding(2.dp)
                 )
                 ImageLoaderWTT(
-                    url = scoreCard.playersData2.flag,
+                    url = scoreCard.matchPlayerData2.flag,
                     modifier = Modifier
                         .size(width = 20.dp, height = 15.dp)
                         .padding(2.dp)
                 )
                 BoldText(
-                    text = scoreCard.playersData2.players.uppercase(),
+                    text = scoreCard.matchPlayerData2.players.uppercase(),
                     size = 8.sp
                 )
             }
@@ -180,7 +177,7 @@ fun LiveScoreCard(scoreCard: ScoreCardData) {
         ) {
             Box(
                 modifier = Modifier
-                    .sizeIn(24.dp,24.dp)
+                    .sizeIn(24.dp, 24.dp)
                     .background(
                         color = Color.Cyan,
                         shape = RoundedCornerShape(50)
@@ -294,12 +291,16 @@ fun Tag(tag: String) {
 }
 
 @Composable
-fun ImageLoaderWTT(url: String, modifier: Modifier = Modifier) {
+fun ImageLoaderWTT(
+    url: String,
+    modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Crop
+) {
     SubcomposeAsyncImage(
         model = url,
         modifier = modifier
             .fillMaxWidth(),
-        contentScale = ContentScale.Crop,
+        contentScale = contentScale,
         loading = {
             Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.github.wtt_clone.ChampionShipData
 import com.github.wtt_clone.CurrentMatchData
 import com.github.wtt_clone.LatestPageData
-import com.github.wtt_clone.PlayersData
+import com.github.wtt_clone.MatchPlayerData
 import com.github.wtt_clone.ScoreCardData
 import com.kevinnzou.compose.core.paginglist.easyPager
 import com.kevinnzou.compose.core.paginglist.pagerconfig.PagingListWrapper
@@ -36,12 +36,12 @@ class LatestNewsViewModel @Inject constructor() : ViewModel() {
                         day = "Today",
                         title = "Mixed Doubles - Quarter finale"
                     ),
-                    playersData1 = PlayersData(
+                    matchPlayerData1 = MatchPlayerData(
                         flag = countryFlags.random(),
                         players = players.random().plus("/").plus(players.random()),
                         rank = "#${(1..8).random()}"
                     ),
-                    playersData2 = PlayersData(
+                    matchPlayerData2 = MatchPlayerData(
                         flag = countryFlags.random(),
                         players = players.random().plus("/").plus(players.random()),
                         rank = "#${(1..8).random()}"
