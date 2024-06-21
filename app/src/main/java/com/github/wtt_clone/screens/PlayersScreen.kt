@@ -42,11 +42,23 @@ fun PlayersScreen(
                 .fillMaxSize()
         ) {
             val playersPagerData = viewModel.playersPager.collectAsLazyPagingItems()
+            val playersPager2Data = viewModel.playersPager2.collectAsLazyPagingItems()
             PagingListContainer(pagingData = playersPagerData) {
                 LazyColumn {
                     itemsIndexed(playersPagerData) { _, value ->
                         value?.let {
                             PlayersCard(it) {
+                                navController.navigate("player_info_screen/${it.name}/${it.ranking}/${it.points}/${it.country}")
+                            }
+                        }
+                    }
+//                }
+//            }
+//            PagingListContainer(pagingData = playersPager2Data) {
+//                LazyColumn {
+                    itemsIndexed(playersPager2Data) { _, value ->
+                        value?.let {
+                            PlayersCardLessImage(it) {
                                 navController.navigate("player_info_screen/${it.name}/${it.ranking}/${it.points}/${it.country}")
                             }
                         }
@@ -103,6 +115,58 @@ fun PlayersCard(player: PlayerData, navigateToPlayerDetails: (PlayerData) -> Uni
                     modifier = Modifier
                         .weight(1f)
                         .padding(top = 8.dp)
+                )
+                Row(
+                    modifier = Modifier.clickable {
+                        navigateToPlayerDetails(player)
+                    },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    BoldText(
+                        text = player.points,
+                        size = 20.sp,
+                        color = orange,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        tint = orange,
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "icon"
+                    )
+                }
+            }
+        }
+
+    }
+}
+
+@Composable
+fun PlayersCardLessImage(player: PlayerData, navigateToPlayerDetails: (PlayerData) -> Unit) {
+    Box {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                BoldText(
+                    text = player.ranking,
+                    size = 20.sp,
+                    color = orange,
+                    modifier = Modifier.padding(top = 2.dp, end = 20.dp)
+                )
+                ImageLoaderWTT(
+                    url = player.countryFlag,
+                    modifier = Modifier.size(width = 20.dp, height = 15.dp)
+                )
+                DescriptionText(
+                    text = player.name,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(top = 8.dp, start = 10.dp)
                 )
                 Row(
                     modifier = Modifier.clickable {

@@ -15,6 +15,9 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
     val playersPager = easyPager {
         loadPlayersData(it)
     }
+    val playersPager2 = easyPager {
+        loadPlayersData1(it)
+    }
 
     private suspend fun loadPlayersData(page: Int): PagingListWrapper<PlayerData> {
         delay(1500)
@@ -31,6 +34,25 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
             )
         }
         return PagingListWrapper(data, false)
+    }
+
+    private suspend fun loadPlayersData1(page: Int): PagingListWrapper<PlayerData> {
+        delay(1500)
+        var data = mutableListOf<PlayerData>()
+        repeat(20) {
+            data.add(
+                PlayerData(
+                    profileImage = profileImages.random(),
+                    name = names[it % 2],
+                    country = country.random(),
+                    ranking = "${it + 6}",
+                    countryFlag = countryFlags.random(),
+                    points = "${(3000..8000).random()}",
+                    lastMatch = "Blah blah"
+                )
+            )
+        }
+        return PagingListWrapper(data, page > 3)
     }
 
     private val countryFlags = listOf(
