@@ -51,6 +51,7 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
 
     fun generateRandomProfilePicture() = profileImages.random()
     fun generateRandomFlag() = countryFlags.random()
+    fun generateRandomDescription() = descriptions.random()
     val names = listOf(
         "WANG Chuqin",
         "FAN Zhendong",
@@ -63,6 +64,13 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
         "FRA",
         "KOR",
         "SWE"
+    )
+    val descriptions = listOf(
+        "WTT Star Contender Ljubljana 2024 Presented by I Feel Slovenia continues to bring the heat with another incredible day of Men’s Singles action. This time it was Jonathan Groth’s turn to ramp up the atmosphere inside Hala Tivoli, falling just shy of a dramatic quarterfinal upset against No.1 seed Felix Lebrun (11-9, 5-11, 10-12, 11-6, 11-6).",
+        "Seeded at No.12 for the week, Groth exceeded ranking expectations with his run to the last eight. Showcasing nerves of steel to overturn a 0-2 deficit to beat Hiroto Shinozuka on Day 2, Groth was equally as magnificent on Day 3, speeding past Andrej Gacina 3-0 (11-9, 16-14, 11-9) to reach his first WTT Star Contender quarterfinal.",
+        "Prithika Pavade’s magical run at WTT Star Contender Ljubljana 2024 Presented by I Feel Slovenia continues to capture the imagination of the fans in attendance at Hala Tivoli, producing another stunning effort on Saturday to turn heads in the Slovenian capital.",
+        "Needing just one more game to claim a huge scalp, Groth had the finish line in sight as Ljubljana held its breath. But Lebrun would crack the code late on, rising to the challenge in game four to level the scores, and he wouldn’t let it slip from there, finding enough in his back pocket to go again in the fifth to deny the upset.",
+        "Facing off against No.4 seed Mima Ito for the second time in eight days, Pavade was going for an unlikely double over the Japanese star on Saturday, and she remarkably pulled off the feat, taking huge belief from her win over Ito at last week’s WTT Contender Zagreb to earn another shock win over the former World No.2 (5-11, 11-4, 11-8, 11-6).",
     )
 
 }
