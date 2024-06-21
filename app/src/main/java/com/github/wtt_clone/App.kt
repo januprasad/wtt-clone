@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -22,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.wtt_clone.screens.LatestScreen
 import com.github.wtt_clone.screens.ProfileScreen
 import com.github.wtt_clone.screens.EventsScreen
+import com.github.wtt_clone.screens.NewsDetailScreen
 import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
 import com.github.wtt_clone.ui.theme.toughorange
@@ -80,28 +82,7 @@ fun App() {
             }
         },
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
-                title = {
-                    Text("")
-                },
-                navigationIcon = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 120.dp),
-                            painter = painterResource(id = R.drawable.main_logo),
-                            contentDescription = "Home"
-                        )
-                    }
-                }
-            )
+            WTTTopBar()
         },
         containerColor = MaterialTheme.colorScheme.primaryContainer,
     ) { paddingValues ->
@@ -137,4 +118,31 @@ fun App() {
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WTTTopBar() {
+    TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        ),
+        title = {
+            Text("")
+        },
+        navigationIcon = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 120.dp),
+                    painter = painterResource(id = R.drawable.main_logo),
+                    contentDescription = "Home"
+                )
+            }
+        }
+    )
 }

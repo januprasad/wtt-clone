@@ -10,13 +10,18 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun BoldText(modifier: Modifier = Modifier, text: String, size: TextUnit = 24.sp, color: Color = Color.White) {
+fun BoldText(
+    modifier: Modifier = Modifier,
+    text: String,
+    size: TextUnit = 24.sp,
+    color: Color = Color.White
+) {
     Text(
         text = text,
         color = color,
         fontWeight = FontWeight.ExtraBold,
         style = TextStyle.Default.copy(
-            fontSize = 24.sp,
+            fontSize = size,
             fontFamily = familyBioSans,
             letterSpacing = 0.5.sp,
         ),
@@ -25,13 +30,15 @@ fun BoldText(modifier: Modifier = Modifier, text: String, size: TextUnit = 24.sp
 }
 
 @Composable
-fun DescriptionText(text: String, size: TextUnit = 16.sp) {
+fun DescriptionText(text: String, size: TextUnit = 16.sp, modifier: Modifier = Modifier, maxLines: Int = Int.MAX_VALUE) {
     Text(
         text = text, style = TextStyle.Default.copy(
             fontSize = 16.sp,
             fontFamily = familyHelveticaNeue,
             letterSpacing = 0.5.sp,
             lineHeight = 21.sp,
-        )
+        ),
+        modifier = modifier,
+        maxLines = maxLines,
     )
 }

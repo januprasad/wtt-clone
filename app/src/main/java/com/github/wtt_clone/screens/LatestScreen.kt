@@ -1,11 +1,12 @@
 package com.github.wtt_clone.screens
 
+import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -14,14 +15,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,14 +35,17 @@ import com.github.wtt_clone.Constants
 import com.github.wtt_clone.DescriptionText
 import com.github.wtt_clone.MainViewModel
 import com.github.wtt_clone.LatestPageData
+import com.github.wtt_clone.NewsDetailActivity
 import com.github.wtt_clone.familyBioSans
-import com.github.wtt_clone.familyHelveticaNeue
 import com.github.wtt_clone.ui.theme.orange
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 import com.kevinnzou.compose.core.paginglist.widget.itemPaging
 
 @Composable
-fun LatestScreen(navController: NavController, viewModel: MainViewModel = hiltViewModel()) {
+fun LatestScreen(
+    navController: NavController,
+    viewModel: MainViewModel = hiltViewModel(),
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -49,22 +55,29 @@ fun LatestScreen(navController: NavController, viewModel: MainViewModel = hiltVi
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            val c = LocalContext.current
             val pagerData = viewModel.latestNewsPager.collectAsLazyPagingItems()
             PagingListContainer(pagingData = pagerData) {
                 LazyColumn {
                     item {
                         Text(
-                            text = "Horizontal scroll",
                             modifier = Modifier
                                 .height(40.dp)
                                 .fillParentMaxWidth(),
+                            text = "Horizontal scroll",
                             textAlign = TextAlign.Center
                         )
                     }
                     itemsIndexed(pagerData) { _, value ->
 //                        PagingContent(value)
                         value?.let {
-                            ScrollableContent(it)
+                            ScrollableContent(it) {
+                                startActivity(
+                                    c,
+                                    Intent(c, NewsDetailActivity::class.java),
+                                    bundleOf()
+                                )
+                            }
                         }
 
                     }
@@ -75,10 +88,12 @@ fun LatestScreen(navController: NavController, viewModel: MainViewModel = hiltVi
     }
 }
 
+
 @Composable
 fun ScrollableContent(
     pageData: LatestPageData,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateToReadMorePage: () -> Unit
 ) {
     Column {
         Box(
@@ -110,7 +125,11 @@ fun ScrollableContent(
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             DescriptionText(text = pageData.description)
         }
-        Row(modifier = Modifier.padding(top = 16.dp, start = 8.dp, bottom = 32.dp)) {
+        Row(modifier = Modifier
+            .padding(top = 16.dp, start = 8.dp, bottom = 32.dp)
+            .clickable {
+                navigateToReadMorePage()
+            }) {
             BoldText(
                 color = orange,
                 modifier = Modifier.weight(1f),

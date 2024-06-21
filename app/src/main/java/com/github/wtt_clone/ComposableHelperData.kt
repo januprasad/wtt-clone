@@ -13,3 +13,7 @@ data class EventData(
     val countryFlag: String,
     val description: String,
 )
+data class VideoData(
+    val thumb: String,
+    val title: String,
+)
