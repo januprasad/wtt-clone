@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,26 +25,27 @@ fun NewsDetailScreen(viewModel: LatestNewsViewModel = hiltViewModel()) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
-        Column(
+        val image by remember {
+            mutableStateOf(viewModel.randomNewsImage())
+        }
+        val description by remember {
+            mutableStateOf(viewModel.mapAllDescriptions())
+        }
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
 
-            val image by remember {
-                mutableStateOf(viewModel.randomNewsImage())
+            item {
+                ImageLoaderWTT(
+                    url = image, modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                )
             }
-            val description by remember {
-                mutableStateOf(viewModel.mapAllDescriptions())
+            item {
+                DescriptionText(text = description, modifier = Modifier.padding(8.dp))
             }
-            ImageLoaderWTT(
-                url = image, modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            )
-
-            DescriptionText(text = description)
         }
     }
 }

@@ -71,7 +71,7 @@ class LatestNewsViewModel @Inject constructor() : ViewModel() {
 
     fun randomNewsImage(): String = images.random()
     fun mapAllDescriptions(): String = descriptions.joinToString {
-        "\n"
+        it + "\n"
     }
 
     private val countryFlags = listOf(
