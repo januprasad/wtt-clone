@@ -43,7 +43,9 @@ fun App() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.primaryContainer
+            ) {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
                     val selected = navigationItem.route == currentDestination?.route
                     val sizeIcon: Dp by animateDpAsState(targetValue =
