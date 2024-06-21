@@ -5,14 +5,21 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -31,6 +38,7 @@ import com.github.wtt_clone.VideosViewModel
 import com.github.wtt_clone.ui.theme.orange
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideoScreen(
     navController: NavController, viewModel: VideosViewModel = hiltViewModel(),
@@ -39,24 +47,48 @@ fun VideoScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            item {
-                MatchHighlights(viewModel)
+        Column {
+            var text by remember { mutableStateOf("") } // Query for SearchBar
+            var active by remember { mutableStateOf(false) } // Active state for SearchBar
+            SearchBar(modifier = Modifier.fillMaxWidth(),
+                query = text,
+                onQueryChange = {
+                    text = it
+                },
+                onSearch = {
+                    active = false
+                },
+                active = active,
+                onActiveChange = {
+                    active = false
+                },
+                placeholder = {
+                    Text(text = "Enter your query")
+                },
+                trailingIcon = {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                }) {
+
             }
-            item {
-                Compilations(viewModel)
-            }
-            item {
-                PressRelease(viewModel)
-            }
-            item {
-                BehindTheScenes(viewModel)
-            }
-            item {
-                PlayerReturns(viewModel)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                item {
+                    MatchHighlights(viewModel)
+                }
+                item {
+                    Compilations(viewModel)
+                }
+                item {
+                    PressRelease(viewModel)
+                }
+                item {
+                    BehindTheScenes(viewModel)
+                }
+                item {
+                    PlayerReturns(viewModel)
+                }
             }
         }
     }
@@ -65,7 +97,10 @@ fun VideoScreen(
 @Composable
 fun MatchHighlights(viewModel: VideosViewModel) {
     val pagerData = viewModel.matchHighLightsPager.collectAsLazyPagingItems()
-    BoldText(text = "Match highlights".uppercase(), modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp))
+    BoldText(
+        text = "Match highlights".uppercase(),
+        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+    )
     PagingListContainer(pagingData = pagerData) {
         LazyRow(
             modifier = Modifier.sizeIn(maxHeight = 180.dp),
@@ -85,7 +120,10 @@ fun MatchHighlights(viewModel: VideosViewModel) {
 fun Compilations(viewModel: VideosViewModel) {
 
     val pagerData = viewModel.compilationsPager.collectAsLazyPagingItems()
-    BoldText(text = "Compilations".uppercase(), modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp))
+    BoldText(
+        text = "Compilations".uppercase(),
+        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+    )
     PagingListContainer(pagingData = pagerData) {
         LazyRow(
             modifier = Modifier.sizeIn(maxHeight = 180.dp),
@@ -105,7 +143,10 @@ fun Compilations(viewModel: VideosViewModel) {
 fun PressRelease(viewModel: VideosViewModel) {
 
     val pagerData = viewModel.pressReleasePager.collectAsLazyPagingItems()
-    BoldText(text = "Press Release".uppercase(), modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp))
+    BoldText(
+        text = "Press Release".uppercase(),
+        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+    )
     PagingListContainer(pagingData = pagerData) {
         LazyRow(
             modifier = Modifier.sizeIn(maxHeight = 180.dp),
@@ -125,7 +166,10 @@ fun PressRelease(viewModel: VideosViewModel) {
 fun BehindTheScenes(viewModel: VideosViewModel) {
 
     val pagerData = viewModel.behindTheScenesPager.collectAsLazyPagingItems()
-    BoldText(text = "Behind The Scenes".uppercase(), modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp))
+    BoldText(
+        text = "Behind The Scenes".uppercase(),
+        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+    )
     PagingListContainer(pagingData = pagerData) {
         LazyRow(
             modifier = Modifier.sizeIn(maxHeight = 180.dp),
@@ -144,7 +188,10 @@ fun BehindTheScenes(viewModel: VideosViewModel) {
 @Composable
 fun PlayerReturns(viewModel: VideosViewModel) {
     val pagerData = viewModel.playerReturnsPager.collectAsLazyPagingItems()
-    BoldText(text = "Player Returns".uppercase(), modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp))
+    BoldText(
+        text = "Player Returns".uppercase(),
+        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+    )
     PagingListContainer(pagingData = pagerData) {
         LazyRow(
             modifier = Modifier.sizeIn(maxHeight = 180.dp),
