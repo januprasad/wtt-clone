@@ -69,6 +69,11 @@ class LatestNewsViewModel @Inject constructor() : ViewModel() {
         return PagingListWrapper(data, page < 3)
     }
 
+    fun randomNewsImage(): String = images.random()
+    fun mapAllDescriptions(): String = descriptions.joinToString {
+        "\n"
+    }
+
     private val countryFlags = listOf(
         "https://documentstore.ittf.com/websitefiles/assets/flags_normal/in.png",
         "https://documentstore.ittf.com/websitefiles/assets/flags_normal/us.png",

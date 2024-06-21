@@ -46,7 +46,7 @@ fun App() {
                 containerColor = MaterialTheme.colorScheme.primaryContainer
             ) {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
-                    val selected = navigationItem.route == currentDestination?.route
+                    val selected = (navigationItem.route == currentDestination?.route)
                     val sizeIcon: Dp by animateDpAsState(
                         targetValue =
                         if (selected) 28.dp else 24.dp
