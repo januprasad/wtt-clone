@@ -138,7 +138,7 @@ fun App() {
                 Screens.PlayerInfo.route,
                 arguments = listOf(
                     navArgument("name") { type = NavType.StringType },
-//                    navArgument("country") { type = NavType.StringType },
+                    navArgument("country") { type = NavType.StringType },
 //                    navArgument("flag") { type = NavType.StringType },
                     navArgument("points") { type = NavType.StringType },
                     navArgument("ranking") { type = NavType.StringType }
@@ -157,7 +157,8 @@ fun App() {
                     navController,
                     name = playerData.name,
                     ranking = playerData.ranking,
-                    points = playerData.points
+                    points = playerData.points,
+                    country = playerData.country,
                 )
             }
         }

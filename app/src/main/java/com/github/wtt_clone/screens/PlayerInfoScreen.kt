@@ -1,14 +1,31 @@
 package com.github.wtt_clone.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.github.wtt_clone.BoldText
 import com.github.wtt_clone.PlayerData
+import com.github.wtt_clone.ui.theme.orange
+import com.github.wtt_clone.viewmodels.PlayersViewModel
 
 @Composable
 fun PlayerInfoScreen(
@@ -16,18 +33,78 @@ fun PlayerInfoScreen(
     name: String,
     ranking: String,
     points: String,
+    country: String,
+    viewModel: PlayersViewModel = hiltViewModel()
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            BoldText(text = name)
-            BoldText(text = ranking)
-            BoldText(text = points)
+        val url by remember {
+            mutableStateOf(viewModel.generateRandomProfilePicture())
+        }
+        val flag by remember {
+            mutableStateOf(viewModel.generateRandomFlag())
+        }
+        Box(modifier = Modifier.fillMaxSize()) {
+            ImageLoaderWTT(
+                url = url,
+                modifier = Modifier.fillMaxSize()
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.BottomStart
+            ) {
+                Box {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentSize()
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            ImageLoaderWTT(
+                                url = flag,
+                                modifier = Modifier.size(width = 20.dp, height = 15.dp)
+                            )
+                            BoldText(
+                                text = name,
+                                size = 40.sp,
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        BoldText(
+                            text = country,
+                            size = 40.sp,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+                Box {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            BoldText(
+                                text = "#${ranking}",
+                                size = 40.sp,
+                                color = orange,
+                                modifier = Modifier.weight(1f)
+                            )
+                            BoldText(text = points.plus(" Points").uppercase(), color = orange)
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

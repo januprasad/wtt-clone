@@ -47,7 +47,7 @@ fun PlayersScreen(
                     itemsIndexed(playersPagerData) { _, value ->
                         value?.let {
                             PlayersCard(it) {
-                                navController.navigate("player_info_screen/${it.name}/${it.ranking}/${it.points}")
+                                navController.navigate("player_info_screen/${it.name}/${it.ranking}/${it.points}/${it.country}")
                             }
                         }
                     }

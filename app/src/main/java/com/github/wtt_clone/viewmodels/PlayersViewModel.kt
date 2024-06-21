@@ -16,9 +16,6 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
         loadPlayersData(it)
     }
 
-    val dataBackup: MutableState<MutableList<PlayerData>> = mutableStateOf(mutableListOf())
-
-
     private suspend fun loadPlayersData(page: Int): PagingListWrapper<PlayerData> {
         delay(1500)
 //        var data = mutableListOf<PlayerData>()
@@ -33,7 +30,6 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
                 lastMatch = "Blah blah"
             )
         }
-        dataBackup.value = data.toMutableList()
         return PagingListWrapper(data, false)
     }
 
@@ -52,6 +48,9 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
         "https://wttsimfiles.blob.core.windows.net/wtt-media/photos/400px/121404_Headshot_R_FAN_Zhendong.png",
         "https://wttsimfiles.blob.core.windows.net/wtt-media/photos/400px/121558_Headshot_R_WANG_Chuqin.png",
     )
+
+    fun generateRandomProfilePicture() = profileImages.random()
+    fun generateRandomFlag() = countryFlags.random()
     val names = listOf(
         "WANG Chuqin",
         "FAN Zhendong",
