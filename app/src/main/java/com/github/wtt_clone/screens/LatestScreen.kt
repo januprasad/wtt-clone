@@ -77,7 +77,7 @@ fun ScrollableContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(2.dp)
-                .background(brush = Constants.brush)
+                .background(brush = Constants.gradientBrush)
         )
         Column(
             verticalArrangement = Arrangement.spacedBy((-10).dp),

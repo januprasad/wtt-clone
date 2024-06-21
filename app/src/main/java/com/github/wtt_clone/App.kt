@@ -1,8 +1,6 @@
 package com.github.wtt_clone
 
-import android.graphics.BlendMode
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -28,8 +24,6 @@ import com.github.wtt_clone.screens.ProfileScreen
 import com.github.wtt_clone.screens.EventsScreen
 import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
-import com.github.wtt_clone.ui.theme.orange
-import com.github.wtt_clone.ui.theme.red
 import com.github.wtt_clone.ui.theme.toughorange
 
 
@@ -54,7 +48,7 @@ fun App() {
                             .drawWithCache {
                                 onDrawWithContent {
                                     drawContent()
-                                    drawRect(brush = Constants.brush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
+                                    drawRect(brush = Constants.gradientBrush, blendMode = androidx.compose.ui.graphics.BlendMode.SrcAtop)
                                 }
                             }
                     }

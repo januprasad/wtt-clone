@@ -5,7 +5,7 @@ import com.github.wtt_clone.ui.theme.orange
 import com.github.wtt_clone.ui.theme.red
 
 object Constants{
-    val brush = Brush.verticalGradient(
+    val gradientBrush = Brush.horizontalGradient(
         colors = listOf(
             red,
             orange
