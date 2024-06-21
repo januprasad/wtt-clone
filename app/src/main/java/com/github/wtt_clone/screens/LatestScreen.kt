@@ -9,11 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -22,6 +26,8 @@ import coil.compose.SubcomposeAsyncImage
 import com.github.wtt_clone.Constants
 import com.github.wtt_clone.MainViewModel
 import com.github.wtt_clone.LatestPageData
+import com.github.wtt_clone.familyBioSans
+import com.github.wtt_clone.familyHelveticaNeue
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 import com.kevinnzou.compose.core.paginglist.widget.itemPaging
 
@@ -63,8 +69,10 @@ fun LatestScreen(navController: NavController, viewModel: MainViewModel = hiltVi
 }
 
 @Composable
-fun ScrollableContent(pageData: LatestPageData,
-                      modifier: Modifier = Modifier) {
+fun ScrollableContent(
+    pageData: LatestPageData,
+    modifier: Modifier = Modifier
+) {
     Column {
         Box(
             modifier = Modifier
@@ -72,21 +80,67 @@ fun ScrollableContent(pageData: LatestPageData,
                 .height(2.dp)
                 .background(brush = Constants.brush)
         )
-        Box(modifier = Modifier.fillMaxWidth())
-        {
-            ImageLoaderWTT(pageData.image, modifier.height(200.dp))
+        Column(
+            verticalArrangement = Arrangement.spacedBy((-10).dp),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                ImageLoaderWTT(pageData.image, modifier.height(200.dp))
+            }
+
+            Box(modifier = Modifier
+                .zIndex(2f)
+                .padding(bottom = 10.dp, start = 10.dp)) {
+                Tag(tag = pageData.tag)
+            }
         }
-        Text(text = pageData.title, style = TextStyle.Default.copy(
-            fontSize = 24.sp,
-        ))
 
-        Text(text = pageData.description, style = TextStyle.Default.copy(
-            fontSize = 16.sp,
-        ))
-
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(
+                text = pageData.title,
+                fontWeight = FontWeight.ExtraBold,
+                style = TextStyle.Default.copy(
+                    fontSize = 24.sp,
+                    fontFamily = familyBioSans,
+                    letterSpacing = 0.5.sp,
+                )
+            )
+            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = pageData.description, style = TextStyle.Default.copy(
+                    fontSize = 16.sp,
+                    fontFamily = familyHelveticaNeue,
+                    letterSpacing = 0.5.sp,
+                    lineHeight = 21.sp,
+                )
+            )
+        }
 
 
     }
+}
+
+@Composable
+fun Tag(tag: String) {
+    Box(
+        modifier = Modifier
+            .wrapContentSize()
+            .background(Color.White)
+    ) {
+        Text(
+            modifier = Modifier
+                .wrapContentSize().padding(4.dp),
+            text = tag,
+            color = Color.Black,
+            fontWeight = FontWeight.SemiBold,
+            style = TextStyle.Default.copy(
+                fontSize = 10.sp,
+                fontFamily = familyBioSans,
+                letterSpacing = 0.5.sp,
+                lineHeight = 21.sp,
+            )
+        )
+    }
+
 }
 
 @Composable

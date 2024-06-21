@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
                 LatestPageData(
                     image = "https://picsum.photos/200/300?random=$it",
                     title = "Contrary to popular belief, Lorem Ipsum is not simply random text.",
-                    tag = "Tag $it",
+                    tag = "WTT Contented . 1hr ago",
                     description = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
                 )
             )
