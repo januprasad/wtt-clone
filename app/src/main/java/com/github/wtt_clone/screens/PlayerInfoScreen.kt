@@ -72,7 +72,7 @@ fun PlayerInfoScreen(
                             .fillMaxWidth()
                     ) {
                         Row(
-                            modifier = Modifier.padding(16.dp),
+                            modifier = Modifier.padding(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Start
                         ) {
@@ -88,9 +88,8 @@ fun PlayerInfoScreen(
                 }
 
                 Column {
-
                     Row(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
@@ -100,6 +99,7 @@ fun PlayerInfoScreen(
                                 modifier = Modifier.size(width = 25.dp, height = 20.dp)
                             )
                             BoldText(
+                                modifier = Modifier.padding(top = 8.dp),
                                 text = country,
                                 size = 10.sp,
                             )
