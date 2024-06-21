@@ -3,13 +3,18 @@ package com.github.wtt_clone.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -22,11 +27,14 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.SubcomposeAsyncImage
+import com.github.wtt_clone.BoldText
 import com.github.wtt_clone.Constants
+import com.github.wtt_clone.DescriptionText
 import com.github.wtt_clone.MainViewModel
 import com.github.wtt_clone.LatestPageData
 import com.github.wtt_clone.familyBioSans
 import com.github.wtt_clone.familyHelveticaNeue
+import com.github.wtt_clone.ui.theme.orange
 import com.kevinnzou.compose.core.paginglist.widget.PagingListContainer
 import com.kevinnzou.compose.core.paginglist.widget.itemPaging
 
@@ -86,35 +94,35 @@ fun ScrollableContent(
                 ImageLoaderWTT(pageData.image, modifier.height(200.dp))
             }
 
-            Box(modifier = Modifier
-                .zIndex(2f)
-                .padding(bottom = 10.dp, start = 10.dp)) {
+            Box(
+                modifier = Modifier
+                    .zIndex(2f)
+                    .padding(bottom = 10.dp, start = 10.dp)
+            ) {
                 Tag(tag = pageData.tag)
             }
         }
 
         Column(modifier = Modifier.padding(8.dp)) {
-            Text(
+            BoldText(
                 text = pageData.title,
-                fontWeight = FontWeight.ExtraBold,
-                style = TextStyle.Default.copy(
-                    fontSize = 24.sp,
-                    fontFamily = familyBioSans,
-                    letterSpacing = 0.5.sp,
-                )
             )
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            Text(
-                text = pageData.description, style = TextStyle.Default.copy(
-                    fontSize = 16.sp,
-                    fontFamily = familyHelveticaNeue,
-                    letterSpacing = 0.5.sp,
-                    lineHeight = 21.sp,
-                )
+            DescriptionText(text = pageData.description)
+        }
+        Row(modifier = Modifier.padding(top = 16.dp, start = 8.dp, bottom = 32.dp)) {
+            BoldText(
+                color = orange,
+                modifier = Modifier.weight(1f),
+                text = "Read More",
+                size = 16.sp,
+            )
+            Icon(
+                tint = orange,
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = "icon"
             )
         }
-
-
     }
 }
 
@@ -127,7 +135,8 @@ fun Tag(tag: String) {
     ) {
         Text(
             modifier = Modifier
-                .wrapContentSize().padding(4.dp),
+                .wrapContentSize()
+                .padding(4.dp),
             text = tag,
             color = Color.Black,
             fontWeight = FontWeight.SemiBold,
