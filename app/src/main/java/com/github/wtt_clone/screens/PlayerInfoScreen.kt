@@ -6,14 +6,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.github.wtt_clone.viewmodels.PlayersViewModel
+import com.github.wtt_clone.BoldText
+import com.github.wtt_clone.PlayerData
 
 @Composable
 fun PlayerInfoScreen(
     navController: NavController,
-    viewModel: PlayersViewModel = hiltViewModel()
+    name: String,
+    ranking: String,
+    points: String,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -23,7 +25,9 @@ fun PlayerInfoScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
+            BoldText(text = name)
+            BoldText(text = ranking)
+            BoldText(text = points)
         }
     }
 }

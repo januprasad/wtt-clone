@@ -6,5 +6,5 @@ sealed class Screens(val route : String) {
     object Video : Screens("video_screen")
     object Players : Screens("players_screen")
     object Profile : Screens("profile_screen")
-    object PlayerDetail : Screens("news_detail_screen")
+    object PlayerInfo : Screens("player_info_screen/{name}/{ranking}/{points}")
 }

@@ -1,6 +1,5 @@
 package com.github.wtt_clone
 
-import android.content.pm.ActivityInfo
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
@@ -16,19 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.github.wtt_clone.screens.LatestScreen
 import com.github.wtt_clone.screens.ProfileScreen
 import com.github.wtt_clone.screens.EventsScreen
-import com.github.wtt_clone.screens.NewsDetailScreen
 import com.github.wtt_clone.screens.PlayerInfoScreen
 import com.github.wtt_clone.screens.PlayersScreen
 import com.github.wtt_clone.screens.VideoScreen
@@ -48,7 +47,8 @@ fun App() {
             ) {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
                     val selected = navigationItem.route == currentDestination?.route
-                    val sizeIcon: Dp by animateDpAsState(targetValue =
+                    val sizeIcon: Dp by animateDpAsState(
+                        targetValue =
                         if (selected) 28.dp else 24.dp
                     )
                     val selectedMod = when (selected) {
@@ -134,9 +134,30 @@ fun App() {
                     navController
                 )
             }
-            composable(Screens.PlayerDetail.route) {
+            composable(
+                Screens.PlayerInfo.route,
+                arguments = listOf(
+                    navArgument("name") { type = NavType.StringType },
+//                    navArgument("country") { type = NavType.StringType },
+//                    navArgument("flag") { type = NavType.StringType },
+                    navArgument("points") { type = NavType.StringType },
+                    navArgument("ranking") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val playerData = PlayerData(
+                    profileImage = backStackEntry.arguments?.getString("image") ?: "",
+                    name = backStackEntry.arguments?.getString("name") ?: "",
+                    country = backStackEntry.arguments?.getString("country") ?: "",
+                    ranking = backStackEntry.arguments?.getString("ranking") ?: "",
+                    countryFlag = backStackEntry.arguments?.getString("flag") ?: "",
+                    points = backStackEntry.arguments?.getString("points") ?: "",
+                    lastMatch = ""
+                )
                 PlayerInfoScreen(
-                    navController
+                    navController,
+                    name = playerData.name,
+                    ranking = playerData.ranking,
+                    points = playerData.points
                 )
             }
         }

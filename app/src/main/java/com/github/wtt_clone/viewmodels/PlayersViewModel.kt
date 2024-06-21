@@ -1,5 +1,7 @@
 package com.github.wtt_clone.viewmodels
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.github.wtt_clone.PlayerData
 import com.kevinnzou.compose.core.paginglist.easyPager
@@ -13,6 +15,8 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
     val playersPager = easyPager {
         loadPlayersData(it)
     }
+
+    val dataBackup: MutableState<MutableList<PlayerData>> = mutableStateOf(mutableListOf())
 
 
     private suspend fun loadPlayersData(page: Int): PagingListWrapper<PlayerData> {
@@ -29,6 +33,7 @@ class PlayersViewModel @Inject constructor() : ViewModel() {
                 lastMatch = "Blah blah"
             )
         }
+        dataBackup.value = data.toMutableList()
         return PagingListWrapper(data, false)
     }
 
