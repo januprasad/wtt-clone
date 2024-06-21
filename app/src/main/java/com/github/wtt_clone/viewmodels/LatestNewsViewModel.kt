@@ -25,7 +25,7 @@ class LatestNewsViewModel @Inject constructor() : ViewModel() {
     private suspend fun loadScoreCardData(page: Int): PagingListWrapper<ScoreCardData> {
         delay(1500)
         var data = mutableListOf<ScoreCardData>()
-        repeat(20) {
+        repeat(3) {
             data.add(
                 ScoreCardData(
                     match = ChampionShipData(
