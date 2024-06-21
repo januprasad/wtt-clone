@@ -180,11 +180,13 @@ fun LiveScoreCard(scoreCard: ScoreCardData) {
         ) {
             Box(
                 modifier = Modifier
+                    .sizeIn(24.dp,24.dp)
                     .background(
                         color = Color.Cyan,
                         shape = RoundedCornerShape(50)
                     )
-                    .padding(4.dp)
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
             ) {
                 BoldText(text = "${(1..30).random()}", size = 12.sp, color = Color.Black)
             }
